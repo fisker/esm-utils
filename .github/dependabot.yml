@@ -1,0 +1,41 @@
+# config file for `dependabot`
+#
+# update: wget -O config.yml https://git.io/fjVjR
+# document: https://dependabot.com/docs/config-file/
+#
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "06:00"
+      timezone: "Asia/Shanghai"
+    allow:
+      - dependency-type: "all"
+    assignees:
+      - "fisker"
+    # commit-message:
+    ignore:
+      - dependency-name: "caniuse-lite"
+      - dependency-name: "caniuse-db"
+      - dependency-name: "electron-to-chromium"
+    # labels:
+    #   - "label-name"
+    # milestone:
+    open-pull-requests-limit: 99
+    # pull-request-branch-name:
+    #   separator: "-"
+    rebase-strategy: "auto"
+    reviewers:
+      - "fisker"
+    # target-branch: "develop"
+    versioning-strategy: "increase"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "06:00"
+      timezone: "Asia/Shanghai"
