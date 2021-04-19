@@ -25,3 +25,11 @@ test('json.loadSync', (t) => {
   const packageJson = esmUtils.json.loadSync('../package.json')
   t.is(packageJson.name, 'esm-utils')
 })
+
+test('require', (t) => {
+  t.is(typeof esmUtils.require, 'function')
+  t.is(typeof esmUtils.require.resolve, 'function')
+
+  t.is(esmUtils.require('../package.json').name, 'esm-utils')
+  t.is(esmUtils.require.resolve('../package.json'), path.join(projectRoot, 'package.json'))
+})

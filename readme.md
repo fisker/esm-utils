@@ -20,7 +20,12 @@ const {dirname, filename, json} = createEsmUtils(import.meta)
 
 ### createEsmUtils(importMeta)
 
-Returns a `object` with the properties `dirname`, `filename`, and `json`.
+Returns a `object` with the properties
+
+- `dirname`
+- `filename`
+- `json`
+- `require`
 
 ### `json.load(relatedPath)`
 
