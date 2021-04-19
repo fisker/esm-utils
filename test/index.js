@@ -31,5 +31,8 @@ test('require', (t) => {
   t.is(typeof esmUtils.require.resolve, 'function')
 
   t.is(esmUtils.require('../package.json').name, 'esm-utils')
-  t.is(esmUtils.require.resolve('../package.json'), path.join(projectRoot, 'package.json'))
+  t.is(
+    esmUtils.require.resolve('../package.json'),
+    path.join(projectRoot, 'package.json')
+  )
 })
