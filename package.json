@@ -59,7 +59,7 @@
   "devDependencies": {
     "@commitlint/cli": "12.1.1",
     "@fisker/commitlint-config": "1.3.4",
-    "@fisker/eslint-config": "5.0.4",
+    "@fisker/eslint-config": "5.0.5",
     "@fisker/eslint-config-ava": "2.0.2",
     "@fisker/husky-config": "4.0.3",
     "@fisker/lint-staged-config": "3.0.3",
