@@ -40,7 +40,7 @@ Sync version of `json.load`.
 With [`Import Assertions`](https://github.com/tc39/proposal-import-assertions)
 
 ```js
-import json from "./path/to/you-json-file.json" assert { type: "json" };
+import json from './path/to/you-json-file.json' assert {type: 'json'}
 ```
 
 With `require`
