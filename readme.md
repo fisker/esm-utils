@@ -13,7 +13,7 @@ yarn add esm-utils
 ```js
 import createEsmUtils from 'esm-utils'
 
-const {dirname, filename, json} = createEsmUtils(import.meta)
+const {dirname, filename, require} = createEsmUtils(import.meta)
 ```
 
 ## API
