@@ -27,11 +27,11 @@ Returns a `object` with the properties
 - `json`
 - `require`
 
-### `json.load(relatedPath)`
+### `json.load(string | URL)`
 
 Returns `Promise<jsonObject>`.
 
-### `json.loadSync(relatedPath)`
+### `json.loadSync(string | URL)`
 
 Sync version of `json.load`.
 
@@ -49,7 +49,6 @@ With `require`
 import createEsmUtils from 'esm-utils'
 
 const {require} = createEsmUtils(import.meta)
-
 const json = require('./path/to/you-json-file.json')
 ```
 
@@ -59,6 +58,5 @@ With `json.load`
 import createEsmUtils from 'esm-utils'
 
 const {json} = createEsmUtils(import.meta)
-
 const json = await json.load('./path/to/you-json-file.json')
 ```
