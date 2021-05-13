@@ -1,6 +1,6 @@
 {
   "name": "esm-utils",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Utilities you need when migrating to ESModule.",
   "homepage": "https://github.com/fisker/esm-utils#readme",
   "bugs": {
