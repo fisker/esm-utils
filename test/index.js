@@ -8,10 +8,12 @@ const esmUtils = createEsmUtils(import.meta)
 
 test('filename', (t) => {
   t.is(esmUtils.filename, path.join(projectRoot, 'test/index.js'))
+  t.is(esmUtils.__filename, esmUtils.filename)
 })
 
 test('dirname', (t) => {
   t.is(esmUtils.dirname, path.join(projectRoot, 'test'))
+  t.is(esmUtils.__dirname, esmUtils.dirname)
 })
 
 test('json.load', async (t) => {
