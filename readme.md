@@ -27,7 +27,7 @@ Returns a `object` with the properties
 - `filename` (alias `__filename`)
 - `json`
 
-**Please read [this](#youdontneeddirnameandfilename) before you use `dirname` and `filename`**
+**Please read [this note](#you-dont-need-dirname-and-filename) before you use `dirname` and `filename`**
 
 ### `json.load(string | URL)`
 
@@ -65,7 +65,7 @@ const json = await json.load('./path/to/you-json-file.json')
 
 ## You don't need `dirname` and `filename`
 
-The `dirname` and `filename` supposed to be a quick solution when migrating to ES Modules. In most case, you don't need them because many APIs accept `URL` directly.
+The `dirname` and `filename` supposed to be a quick solution when migrating to ES Modules. In most cases, you don't need them because many APIs accept `URL` directly.
 
 ```diff
 import fs from 'node:fs/promises'
