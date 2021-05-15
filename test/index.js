@@ -80,9 +80,19 @@ test('require', (t) => {
   )
 })
 
-test('without passing import.meta should has same result', (t) => {
-  const createdFromImportMeta = createEsmUtils(import.meta)
-  const createWithoutImportMeta = createEsmUtils()
-  t.is(createdFromImportMeta.filename, createWithoutImportMeta.filename)
-  t.is(createdFromImportMeta.filename, exportedUtils.filename)
+test('exports', (t) => {
+  t.is(
+    esmUtils.filename,
+    exportedUtils.filename,
+    'exported "utils" should work.'
+  )
+  t.throws(
+    () => {
+      createEsmUtils().filename
+    },
+    {
+      instanceOf: TypeError,
+    },
+    'createEsmUtils requires `importMeta`'
+  )
 })
