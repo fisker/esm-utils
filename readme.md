@@ -11,16 +11,16 @@ yarn add esm-utils
 ## Usage
 
 ```js
-import createEsmUtils from 'esm-utils'
+import esmUtils from 'esm-utils'
 
-const {dirname, filename, require} = createEsmUtils(import.meta)
+const {dirname, filename, require} = esmUtils
 ```
 
 ## API
 
-### createEsmUtils(importMeta)
+### esmUtils
 
-Returns a `object` with the properties
+A `object` with the following properties
 
 - `require`
 - `dirname` (alias `__dirname`)
@@ -48,19 +48,17 @@ import json from './path/to/you-json-file.json' assert {type: 'json'}
 With `require`
 
 ```js
-import createEsmUtils from 'esm-utils'
+import esmUtils from 'esm-utils'
 
-const {require} = createEsmUtils(import.meta)
-const json = require('./path/to/you-json-file.json')
+const json = esmUtils.require('./path/to/you-json-file.json')
 ```
 
 With `json.load`
 
 ```js
-import createEsmUtils from 'esm-utils'
+import esmUtils from 'esm-utils'
 
-const {json} = createEsmUtils(import.meta)
-const json = await json.load('./path/to/you-json-file.json')
+const json = await esmUtils.json.load('./path/to/you-json-file.json')
 ```
 
 ## You don't need `dirname` and `filename`
@@ -70,11 +68,10 @@ The `dirname` and `filename` supposed to be a quick solution when migrating to E
 ```diff
 import fs from 'node:fs/promises'
 - import path from 'node:path'
-- import createEsmUtils from 'esm-utils'
+- import esmUtils from 'esm-utils'
 
-- const {dirname} = createEsmUtils(import.meta)
 const text = await fs.readFile(
--  path.join(dirname, './foo.text'),
+-  path.join(esmUtils.dirname, './foo.text'),
 +  new URL('./foo.text', import.meta.url)
   'utf8'
 )

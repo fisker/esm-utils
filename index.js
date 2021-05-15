@@ -1,1 +1,4 @@
-export {default} from './lib/utils.js'
+import create from './lib/utils.js'
+
+export default create()
+export {create}
