@@ -1,7 +1,7 @@
 import url from 'url'
 import path from 'path'
 import test from 'ava'
-import createEsmUtils from '../index.js'
+import createEsmUtils, {utils as exportedUtils} from '../index.js'
 
 const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
@@ -77,5 +77,22 @@ test('require', (t) => {
     esmUtils.require.resolve(packageJsonPath),
     path.join(projectRoot, 'package.json'),
     '`require.resolve()` should work as expected'
+  )
+})
+
+test('exports', (t) => {
+  t.is(
+    esmUtils.filename,
+    exportedUtils.filename,
+    'exported "utils" should work.'
+  )
+  t.throws(
+    () => {
+      createEsmUtils().filename
+    },
+    {
+      instanceOf: TypeError,
+    },
+    'createEsmUtils requires `importMeta`'
   )
 })
