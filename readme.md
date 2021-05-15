@@ -11,16 +11,20 @@ yarn add esm-utils
 ## Usage
 
 ```js
-import esmUtils from 'esm-utils'
+import createEsmUtils from 'esm-utils'
 
-const {dirname, filename, require} = esmUtils
+const {
+  require,
+  dirname,
+  filename,
+  json,
+} = createEsmUtils(import.meta)
 ```
-
 ## API
 
-### esmUtils
+### `createEsmUtils(import.meta)`
 
-A `object` with the following properties
+Returns an `object` with the following properties:
 
 - `require`
 - `dirname` (alias `__dirname`)
@@ -63,16 +67,44 @@ const json = await esmUtils.json.load('./path/to/you-json-file.json')
 
 ## You don't need `dirname` and `filename`
 
-The `dirname` and `filename` supposed to be a quick solution when migrating to ES Modules. In most cases, you don't need them because many APIs accept `URL` directly.
+The `dirname` and `filename` supposed to be a quick solution when migrating to ES Modules. In most cases, you don't need them, because many APIs accept `URL` directly.
 
-```diff
+```js
+/* BAD */
 import fs from 'node:fs/promises'
-- import path from 'node:path'
-- import esmUtils from 'esm-utils'
+import path from 'node:path'
+import esmUtils from 'esm-utils'
 
-const text = await fs.readFile(
--  path.join(esmUtils.dirname, './foo.text'),
-+  new URL('./foo.text', import.meta.url)
-  'utf8'
+const {dirname} = esmUtils
+const buffer = await fs.readFile(
+  path.join(__dirname, './path/to/file')
 )
+```
+
+```js
+/* GOOD */
+import fs from 'node:fs/promises'
+
+const buffer = await fs.readFile(
+new URL('./path/to/file', import.meta.url)
+)
+```
+
+
+## Experimental named export `utils` object
+
+It don't require to create utils with `import.meta`, added to make this module easily to use.
+
+We are **NOT** absolutely sure this is safe to use yet, so it's **NOT recommended** to use in production.
+
+If you find this not working for your case, please [raise an issue](https://github.com/fisker/esm-utils/issues/new?title=[Bug(default%20export)]:%20).
+
+```js
+import esmUtils from 'esm-utils'
+
+const {
+  require,
+  dirname,
+  filename,
+} = esmUtils
 ```

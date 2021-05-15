@@ -1,10 +1,11 @@
 import url from 'url'
 import path from 'path'
 import test from 'ava'
-import esmUtils, {create as createEsmUtils} from '../index.js'
+import createEsmUtils, {utils as exportedUtils} from '../index.js'
 
 const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
+const esmUtils = createEsmUtils(import.meta)
 
 test('filename', (t) => {
   t.is(
@@ -83,4 +84,5 @@ test('without passing import.meta should has same result', (t) => {
   const createdFromImportMeta = createEsmUtils(import.meta)
   const createWithoutImportMeta = createEsmUtils()
   t.is(createdFromImportMeta.filename, createWithoutImportMeta.filename)
+  t.is(createdFromImportMeta.filename, exportedUtils.filename)
 })
