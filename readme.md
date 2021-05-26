@@ -93,7 +93,7 @@ import createEsmUtils from 'esm-utils'
 
 const {dirname} = createEsmUtils(import.meta)
 const buffer = await fs.readFile(
-  path.join(__dirname, './path/to/file')
+  path.join(dirname, './path/to/file')
 )
 ```
 
