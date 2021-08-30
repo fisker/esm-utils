@@ -1,7 +1,7 @@
 import url from 'url'
 import path from 'path'
 import test from 'ava'
-import createEsmUtils, {utils as exportedUtils} from '../index.js'
+import createEsmUtils from '../index.js'
 
 const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
@@ -81,11 +81,6 @@ test('require', (t) => {
 })
 
 test('exports', (t) => {
-  t.is(
-    esmUtils.filename,
-    exportedUtils.filename,
-    'exported "utils" should work.'
-  )
   t.throws(
     () => {
       createEsmUtils().filename

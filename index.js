@@ -1,6 +1,2 @@
-import create from './lib/utils.js'
-import simulatedImportMeta from './lib/simulated-import-meta.js'
+export {default} from './lib/utils.js'
 
-const utils = create(simulatedImportMeta)
-
-export {create as default, utils}

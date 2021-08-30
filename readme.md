@@ -106,17 +106,3 @@ const buffer = await fs.readFile(
   new URL('./path/to/file', import.meta.url)
 )
 ```
-
-## Experimental named export `utils` object
-
-It don't require to create utils with `import.meta`, added to make this module easier to use.
-
-We are **NOT** absolutely sure this is safe to use yet, so it's **NOT recommended** to use in production.
-
-If you find this not working for your case, please [raise an issue](<https://github.com/fisker/esm-utils/issues/new?title=[Bug(default%20export)]:%20>).
-
-```js
-import {utils as esmUtils} from 'esm-utils'
-
-const {require, dirname, filename} = esmUtils
-```
