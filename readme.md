@@ -1,6 +1,6 @@
 # esm-utils
 
-> Utilities you need when migrating to ESModule.
+> Utilities you'll need when migrating to ESModule.
 
 ## Install
 

@@ -1,7 +1,7 @@
 {
   "name": "esm-utils",
   "version": "2.0.0",
-  "description": "Utilities you need when migrating to ESModule.",
+  "description": "Utilities you'll need when migrating to ESModule.",
   "homepage": "https://github.com/fisker/esm-utils#readme",
   "bugs": {
     "url": "https://github.com/fisker/esm-utils/issues"
@@ -40,7 +40,7 @@
     "lint:prettier": "prettier \"**/*.{css,html,js,cjs,mjs,json,less,md,scss,ts,vue,yaml,yml}\" --check",
     "release": "run-s lint build format test dist",
     "test": "ava",
-    "test-coverage": "nyc yarn test"
+    "test-coverage": "c8 yarn test"
   },
   "config": {
     "commitizen": {
@@ -50,7 +50,7 @@
   "ava": {
     "verbose": true
   },
-  "nyc": {
+  "c8": {
     "reporter": [
       "lcov",
       "text"
@@ -72,7 +72,7 @@
     "lint-staged": "11.1.2",
     "markdownlint-cli": "0.28.1",
     "npm-run-all": "4.1.5",
-    "nyc": "15.1.0",
+    "c8": "7.8.0",
     "prettier": "2.3.2",
     "sort-package-json": "1.50.0"
   },
