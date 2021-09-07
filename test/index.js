@@ -11,12 +11,12 @@ test('filename', (t) => {
   t.is(
     esmUtils.filename,
     path.join(projectRoot, 'test/index.js'),
-    'Should support `filename`.'
+    'Should support `filename`.',
   )
   t.is(
     esmUtils.__filename,
     esmUtils.filename,
-    'Should support `__filename` alias.'
+    'Should support `__filename` alias.',
   )
 })
 
@@ -24,12 +24,12 @@ test('dirname', (t) => {
   t.is(
     esmUtils.dirname,
     path.join(projectRoot, 'test'),
-    'Should support `dirname`.'
+    'Should support `dirname`.',
   )
   t.is(
     esmUtils.__dirname,
     esmUtils.dirname,
-    'Should support `__dirname` alias.'
+    'Should support `__dirname` alias.',
   )
 })
 
@@ -41,23 +41,23 @@ test('json', async (t) => {
   t.is(
     typeof promise.then,
     'function',
-    '`json.load()` should return `Promise`.'
+    '`json.load()` should return `Promise`.',
   )
   t.is(packageJson.name, 'esm-utils', '`json.load()` should work as expected.')
   t.deepEqual(
     await esmUtils.json.load(packageJsonUrl),
     packageJson,
-    '`json.load()` should work on `URL` too.'
+    '`json.load()` should work on `URL` too.',
   )
   t.deepEqual(
     esmUtils.json.loadSync(packageJsonPath),
     packageJson,
-    'Should support `json.loadSync()`.'
+    'Should support `json.loadSync()`.',
   )
   t.deepEqual(
     esmUtils.json.loadSync(packageJsonUrl),
     packageJson,
-    '`json.loadSync()` should work on `URL` too.'
+    '`json.loadSync()` should work on `URL` too.',
   )
 })
 
@@ -66,17 +66,17 @@ test('require', (t) => {
   t.is(
     typeof esmUtils.require.resolve,
     'function',
-    '`require.resolve` should work.'
+    '`require.resolve` should work.',
   )
   t.is(
     esmUtils.require(packageJsonPath).name,
     'esm-utils',
-    '`require()` should work as expected'
+    '`require()` should work as expected',
   )
   t.is(
     esmUtils.require.resolve(packageJsonPath),
     path.join(projectRoot, 'package.json'),
-    '`require.resolve()` should work as expected'
+    '`require.resolve()` should work as expected',
   )
 })
 
@@ -88,6 +88,6 @@ test('exports', (t) => {
     {
       instanceOf: TypeError,
     },
-    'createEsmUtils requires `importMeta`'
+    'createEsmUtils requires `importMeta`',
   )
 })
