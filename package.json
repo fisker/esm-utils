@@ -54,7 +54,7 @@
     "@commitlint/cli": "13.2.1",
     "@fisker/commitlint-config": "2.0.0",
     "@fisker/eslint-config": "9.0.2",
-    "@fisker/eslint-config-ava": "2.0.3",
+    "@fisker/eslint-config-ava": "2.0.4",
     "@fisker/husky-config": "4.1.0",
     "@fisker/lint-staged-config": "3.1.0",
     "@fisker/prettier-config": "5.0.1",
