@@ -51,7 +51,7 @@
     "verbose": true
   },
   "devDependencies": {
-    "@commitlint/cli": "13.2.1",
+    "@commitlint/cli": "14.1.0",
     "@fisker/commitlint-config": "2.0.0",
     "@fisker/eslint-config": "9.0.3",
     "@fisker/eslint-config-ava": "2.0.4",
