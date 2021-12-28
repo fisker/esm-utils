@@ -17,9 +17,11 @@
   "sideEffects": false,
   "type": "module",
   "exports": "./index.js",
+  "typings": "./index.d.ts",
   "files": [
     "index.js",
-    "lib"
+    "lib",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "run-p build:*",
