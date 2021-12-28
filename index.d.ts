@@ -1,5 +1,11 @@
 // From https://github.com/sindresorhus/type-fest
-type JsonValue = string | number | boolean | null | {[Key in string]?: JsonValue} | JsonValue[]
+type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | {[Key in string]?: JsonValue}
+  | JsonValue[]
 
 export interface JsonUtils {
   /**
@@ -13,7 +19,7 @@ export interface JsonUtils {
   const data = await json.load('foo.json')
   ```
   */
-  load (file: string | URL): Promise<JsonValue>
+  load(file: string | URL): Promise<JsonValue>
   /**
   Read and parse a JSON file.
 
@@ -25,7 +31,7 @@ export interface JsonUtils {
   const data = json.loadSync('foo.json')
   ```
   */
-  loadSync (file: string | URL): JsonValue
+  loadSync(file: string | URL): JsonValue
 }
 
 /**
@@ -40,9 +46,7 @@ import createEsmUtils from 'esm-utils'
 const esmUtils = createEsmUtils(import.meta)
 ```
 */
-export default function createEsmUtils (
-  importMeta: ImportMeta,
-): {
+export default function createEsmUtils(importMeta: ImportMeta): {
   readonly filename: string
   readonly dirname: string
   readonly require: NodeRequire
