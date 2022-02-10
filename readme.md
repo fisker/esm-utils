@@ -34,7 +34,6 @@ const {
   filename,
   readJson,
   readJsonSync,
-  json,
   importFile,
 } = createEsmUtils(import.meta)
 ```
@@ -50,8 +49,8 @@ Returns an `object` with the following properties:
 - `filename` (alias `__filename`)
 - `readJson` (alias `loadJson`)
 - `readJsonSync` (alias `loadJsonSync`)
-- `json`
 - `importFile` (alias `import`)
+- `json`
 
 **Please read [this note](#you-dont-need-dirname-and-filename) before you use `dirname` and `filename`**
 
