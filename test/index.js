@@ -35,30 +35,37 @@ test('dirname', (t) => {
 
 test('json', async (t) => {
   const packageJsonUrl = new URL(packageJsonPath, import.meta.url)
+  const {readJson, readJsonSync} = esmUtils
 
-  const promise = esmUtils.json.load(packageJsonPath)
-  const packageJson = await promise
-  t.is(
-    typeof promise.then,
-    'function',
-    '`json.load()` should return `Promise`.',
-  )
-  t.is(packageJson.name, 'esm-utils', '`json.load()` should work as expected.')
+  const packageJson = await readJson(packageJsonPath)
+  t.is(packageJson.name, 'esm-utils', '`readJson()` should work as expected.')
   t.deepEqual(
-    await esmUtils.json.load(packageJsonUrl),
+    await readJson(packageJsonUrl),
     packageJson,
-    '`json.load()` should work on `URL` too.',
+    '`readJson()` should work on `URL` too.',
   )
+
+  const packageJsonSync = readJsonSync(packageJsonPath)
   t.deepEqual(
-    esmUtils.json.loadSync(packageJsonPath),
+    packageJsonSync,
     packageJson,
-    'Should support `json.loadSync()`.',
+    '`readJsonSync()` should work as expected.',
   )
   t.deepEqual(
-    esmUtils.json.loadSync(packageJsonUrl),
+    readJsonSync(packageJsonUrl),
     packageJson,
-    '`json.loadSync()` should work on `URL` too.',
+    '`readJsonSync()` should work on `URL` too.',
   )
+
+  // Alias
+  t.is(esmUtils.loadJson, readJson)
+  t.is(esmUtils.json.read, readJson)
+  t.is(esmUtils.json.load, readJson)
+
+  // Alias
+  t.is(esmUtils.loadJsonSync, readJsonSync)
+  t.is(esmUtils.json.readSync, readJsonSync)
+  t.is(esmUtils.json.loadSync, readJsonSync)
 })
 
 test('require', (t) => {

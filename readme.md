@@ -32,6 +32,8 @@ const {
   require,
   dirname,
   filename,
+  readJson,
+  readJsonSync,
   json,
   importFile,
 } = createEsmUtils(import.meta)
@@ -46,18 +48,25 @@ Returns an `object` with the following properties:
 - `require`
 - `dirname` (alias `__dirname`)
 - `filename` (alias `__filename`)
+- `readJson` (alias `loadJson`)
+- `readJsonSync` (alias `loadJsonSync`)
 - `json`
 - `importFile` (alias `import`)
 
 **Please read [this note](#you-dont-need-dirname-and-filename) before you use `dirname` and `filename`**
 
-### `json.load(string | URL)`
+### `readJson(string | URL)`
 
 Returns `Promise<jsonObject>`.
 
-### `json.loadSync(string | URL)`
+### `readJsonSync(string | URL)`
 
-Sync version of `json.load`.
+Sync version of `readJson`.
+
+### `json`
+
+- `json.{read,load}` alias of `readJson`
+- `json.{read,load}Sync` alias of `readJsonSync`
 
 ### `importFile(string | URL)`
 
@@ -86,20 +95,20 @@ const {require} = createEsmUtils(import.meta)
 const foo = require('./foo.json')
 ```
 
-With `json.load` or `json.loadSync`
+With `readJson` or `readJsonSync`
 
 ```js
 import createEsmUtils from 'esm-utils'
 
-const {json} = createEsmUtils(import.meta)
-const foo = await json.load('./foo.json')
+const {readJson} = createEsmUtils(import.meta)
+const foo = await readJson('./foo.json')
 ```
 
 ```js
 import createEsmUtils from 'esm-utils'
 
-const {json} = createEsmUtils(import.meta)
-const foo = json.loadSync('./foo.json')
+const {readJsonSync} = createEsmUtils(import.meta)
+const foo = readJsonSync('./foo.json')
 ```
 
 ## You don't need `dirname` and `filename`

@@ -7,31 +7,37 @@ type JsonValue =
   | {[Key in string]?: JsonValue}
   | JsonValue[]
 
+/**
+Read and parse a JSON file.
+
+@example
+```
+import createEsmUtils from 'esm-utils'
+const {readJson} = createEsmUtils(import.meta)
+
+const data = await readJson('./foo.json')
+```
+*/
+export type jsonReader = (file: string | URL) => Promise<JsonValue>
+
+/**
+Read and parse a JSON file.
+
+@example
+```
+import createEsmUtils from 'esm-utils'
+const {readJsonSync} = createEsmUtils(import.meta)
+
+const data = json.loadSync('foo.json')
+```
+*/
+export type jsonSyncReader = (file: string | URL) => JsonValue
+
 export interface JsonUtils {
-  /**
-  Read and parse a JSON file.
-
-  @example
-  ```
-  import createEsmUtils from 'esm-utils'
-  const {json} = createEsmUtils(import.meta)
-
-  const data = await json.load('foo.json')
-  ```
-  */
-  load(file: string | URL): Promise<JsonValue>
-  /**
-  Read and parse a JSON file.
-
-  @example
-  ```
-  import createEsmUtils from 'esm-utils'
-  const {json} = createEsmUtils(import.meta)
-
-  const data = json.loadSync('foo.json')
-  ```
-  */
-  loadSync(file: string | URL): JsonValue
+  read: jsonReader
+  load: jsonReader
+  readSync: jsonSyncReader
+  loadSync: jsonSyncReader
 }
 
 /**
@@ -47,7 +53,7 @@ const {importFile} = createEsmUtils(import.meta)
 const foo = await importFile('./foo.js')
 ```
 */
-type importFile = (file: string | URL) => Promise<unknown>
+export type importFile = (file: string | URL) => Promise<unknown>
 
 /**
 Create utilities for ES Module.
@@ -65,9 +71,15 @@ export default function createEsmUtils(importMeta: ImportMeta): {
   readonly filename: string
   readonly dirname: string
   readonly require: NodeRequire
-  readonly json: JsonUtils
   readonly importFile: importFile
+  readonly readJson: jsonReader
+  readonly readJsonSync: jsonSyncReader
+
+  // Alias
   readonly __filename: string
   readonly __dirname: string
   readonly import: importFile
+  readonly loadJson: jsonReader
+  readonly loadJsonSync: jsonSyncReader
+  readonly json: JsonUtils
 }
