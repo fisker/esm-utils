@@ -62,14 +62,19 @@ test('json', async (t) => {
   )
 
   // Alias
+  t.is(esmUtils.readJson, readJson)
   t.is(esmUtils.loadJson, readJson)
   t.is(esmUtils.json.read, readJson)
   t.is(esmUtils.json.load, readJson)
 
   // Alias
+  t.is(esmUtils.readJsonSync, readJsonSync)
   t.is(esmUtils.loadJsonSync, readJsonSync)
   t.is(esmUtils.json.readSync, readJsonSync)
   t.is(esmUtils.json.loadSync, readJsonSync)
+
+  // Cached
+  t.is(esmUtils.json, esmUtils.json)
 })
 
 test('require', (t) => {
@@ -91,11 +96,12 @@ test('require', (t) => {
   )
 })
 
-test('import()', async (t) => {
+test('importFile()', async (t) => {
   const getModuleDefaultExport = (module) => module.default
   const fixtureUrl = new URL('./fixture.js', import.meta.url)
+  const {importFile} = esmUtils
 
-  t.is(typeof esmUtils.import(fixtureUrl).then, 'function')
+  t.is(typeof importFile(fixtureUrl).then, 'function')
   for (const source of [
     // Relative path
     './fixture.js',
@@ -107,13 +113,15 @@ test('import()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
-      getModuleDefaultExport(await esmUtils.import(source)),
+      getModuleDefaultExport(await importFile(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
     )
   }
 
-  await t.throwsAsync(esmUtils.import('ava'), {code: 'ERR_MODULE_NOT_FOUND'})
+  await t.throwsAsync(importFile('ava'), {code: 'ERR_MODULE_NOT_FOUND'})
+  t.is(esmUtils.import, importFile)
+  t.is(esmUtils.importFile, importFile)
 })
 
 test('exports', (t) => {
@@ -126,4 +134,7 @@ test('exports', (t) => {
     },
     'createEsmUtils requires `importMeta`',
   )
+
+  t.is(Object.getPrototypeOf(esmUtils), null)
+  t.is(Object.getPrototypeOf(esmUtils.json), null)
 })
