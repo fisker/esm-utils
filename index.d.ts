@@ -35,7 +35,7 @@ export interface JsonUtils {
 }
 
 /**
-Import a file module
+Import a file
 
 @param file string | URL
 
