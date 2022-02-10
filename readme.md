@@ -63,7 +63,7 @@ Sync version of `json.load`.
 
 > Don't use this to import a NPM module
 
-Same as `import()`, but accepts absolute path (on Windows, `import('C:\\foo.js')` error throws when pass a absolute path starts with drive letter).
+Same as `import()`, but accepts absolute path (on Windows, `import('C:\\foo.js')` error throws when pass a absolute path starts with a drive letter).
 
 ## Import json file
 
