@@ -50,6 +50,9 @@
     }
   },
   "ava": {
+    "files": [
+      "!test/fixture.js"
+    ],
     "verbose": true
   },
   "c8": {

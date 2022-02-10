@@ -80,6 +80,31 @@ test('require', (t) => {
   )
 })
 
+test('import()', async (t) => {
+  const getModuleDefaultExport = (module) => module.default
+  const fixtureUrl = new URL('./fixture.js', import.meta.url)
+
+  t.is(typeof esmUtils.import(fixtureUrl).then, 'function')
+  for (const source of [
+    // Relative path
+    './fixture.js',
+    // `URL`
+    fixtureUrl,
+    // `file:///`
+    fixtureUrl.href,
+    // Absolute path
+    url.fileURLToPath(fixtureUrl),
+  ]) {
+    t.is(
+      getModuleDefaultExport(await esmUtils.import(source)),
+      fixtureUrl.href,
+      `Import '${source}' failure`,
+    )
+  }
+
+  await t.throwsAsync(esmUtils.import('ava'), {code: 'ERR_MODULE_NOT_FOUND'})
+})
+
 test('exports', (t) => {
   t.throws(
     () => {
