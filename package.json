@@ -61,9 +61,6 @@
       "text"
     ]
   },
-  "dependencies": {
-    "url-or-path": "1.1.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "16.1.0",
     "@fisker/commitlint-config": "2.0.2",
