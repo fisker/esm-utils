@@ -35,6 +35,21 @@ export interface JsonUtils {
 }
 
 /**
+Import a file module
+
+@param file string | URL
+
+@example
+```
+import createEsmUtils from 'esm-utils'
+const {importFile} = createEsmUtils(import.meta)
+
+const foo = await importFile('./foo.js')
+```
+*/
+type importFile = (file: string | URL) => Promise<unknown>
+
+/**
 Create utilities for ES Module.
 
 @param importMeta import.meta
@@ -51,6 +66,8 @@ export default function createEsmUtils(importMeta: ImportMeta): {
   readonly dirname: string
   readonly require: NodeRequire
   readonly json: JsonUtils
+  readonly importFile: importFile
   readonly __filename: string
   readonly __dirname: string
+  readonly import: importFile
 }

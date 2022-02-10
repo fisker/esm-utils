@@ -33,6 +33,7 @@ const {
   dirname,
   filename,
   json,
+  importFile,
 } = createEsmUtils(import.meta)
 ```
 
@@ -46,6 +47,7 @@ Returns an `object` with the following properties:
 - `dirname` (alias `__dirname`)
 - `filename` (alias `__filename`)
 - `json`
+- `importFile` (alias `import`)
 
 **Please read [this note](#you-dont-need-dirname-and-filename) before you use `dirname` and `filename`**
 
@@ -56,6 +58,12 @@ Returns `Promise<jsonObject>`.
 ### `json.loadSync(string | URL)`
 
 Sync version of `json.load`.
+
+### `importFile(string | URL)`
+
+Same as `import()`, but accepts absolute path (on Windows, error throws when pass a absolute path starts with drive letter).
+
+**Don't use this to import a NPM module**
 
 ## Import json file
 
