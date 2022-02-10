@@ -18,6 +18,8 @@ test('filename', (t) => {
     esmUtils.filename,
     'Should support `__filename` alias.',
   )
+  t.throws(() => (esmUtils.filename = '1'))
+  t.throws(() => (esmUtils.__filename = '1'))
 })
 
 test('dirname', (t) => {
@@ -31,6 +33,8 @@ test('dirname', (t) => {
     esmUtils.dirname,
     'Should support `__dirname` alias.',
   )
+  t.throws(() => (esmUtils.dirname = '1'))
+  t.throws(() => (esmUtils.__dirname = '1'))
 })
 
 test('json', async (t) => {
