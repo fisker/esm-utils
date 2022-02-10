@@ -61,9 +61,9 @@ Sync version of `json.load`.
 
 ### `importFile(string | URL)`
 
-Same as `import()`, but accepts absolute path (on Windows, error throws when pass a absolute path starts with drive letter).
+> Don't use this to import a NPM module
 
-**Don't use this to import a NPM module**
+Same as `import()`, but accepts absolute path (on Windows, error throws when pass a absolute path starts with drive letter).
 
 ## Import json file
 
