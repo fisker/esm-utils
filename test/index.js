@@ -140,7 +140,21 @@ test('importModule()', async (t) => {
     )
   }
 
+  const utilsCreatedFromParent = createEsmUtils(
+    new URL('../dummy.js', import.meta.url),
+  )
+  t.is(
+    getModuleDefaultExport(
+      await utilsCreatedFromParent.importModule('./test/fixture.js'),
+    ),
+    fixtureUrl.href,
+  )
+  await t.throwsAsync(utilsCreatedFromParent.importModule('./fixture.js'), {
+    code: 'ERR_MODULE_NOT_FOUND',
+  })
+
   await t.notThrowsAsync(importModule('ava'))
+  await t.notThrowsAsync(importModule('node:fs'))
   t.is(esmUtils.import, importModule)
   t.is(esmUtils.importModule, importModule)
 })
