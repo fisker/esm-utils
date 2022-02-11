@@ -64,7 +64,7 @@
   "devDependencies": {
     "@commitlint/cli": "16.1.0",
     "@fisker/commitlint-config": "2.0.2",
-    "@fisker/eslint-config": "10.0.12",
+    "@fisker/eslint-config": "10.0.13",
     "@fisker/eslint-config-ava": "2.0.5",
     "@fisker/husky-config": "4.1.2",
     "@fisker/lint-staged-config": "3.1.4",
@@ -86,6 +86,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "url-or-path": "1.1.0"
+    "url-or-path": "2.1.0"
   }
 }

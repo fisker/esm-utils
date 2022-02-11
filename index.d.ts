@@ -33,27 +33,20 @@ const data = json.loadSync('foo.json')
 */
 export type readJsonSync = (file: string | URL) => JsonValue
 
-export interface JsonUtils {
-  read: readJson
-  load: readJson
-  readSync: readJsonSync
-  loadSync: readJsonSync
-}
-
 /**
-Import a file
+Import a module
 
-@param file string | URL
+@param source string | URL
 
 @example
 ```
 import createEsmUtils from 'esm-utils'
-const {importFile} = createEsmUtils(import.meta)
+const {importModule} = createEsmUtils(import.meta)
 
-const foo = await importFile('./foo.js')
+const foo = await importModule('./foo.js')
 ```
 */
-export type importFile = (file: string | URL) => Promise<unknown>
+export type importModule = (file: string | URL) => Promise<unknown>
 
 /**
 Create utilities for ES Module.
@@ -73,15 +66,14 @@ export default function createEsmUtils(
   readonly filename: string
   readonly dirname: string
   readonly require: NodeRequire
-  readonly importFile: importFile
+  readonly importModule: importModule
   readonly readJson: readJson
   readonly readJsonSync: readJsonSync
 
   // Alias
   readonly __filename: string
   readonly __dirname: string
-  readonly import: importFile
+  readonly import: importModule
   readonly loadJson: readJson
   readonly loadJsonSync: readJsonSync
-  readonly json: JsonUtils
 }

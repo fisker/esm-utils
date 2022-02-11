@@ -34,7 +34,7 @@ const {
   filename,
   readJson,
   readJsonSync,
-  importFile,
+  importModule,
 } = createEsmUtils(import.meta)
 ```
 
@@ -44,21 +44,14 @@ const {
 
 Returns an `object` with the following properties:
 
-- `require`
 - `dirname` (alias `__dirname`)
 - `filename` (alias `__filename`)
+- `require`
+- `importModule` (alias `import`)
 - `readJson` (alias `loadJson`)
 - `readJsonSync` (alias `loadJsonSync`)
-- `importFile` (alias `import`)
-- `json`
 
 **Please read [this note](#you-dont-need-dirname-and-filename) before you use `dirname` and `filename`**
-
-### `readJson(string | URL)`
-
-Returns `Promise<jsonObject>`.
-
-### `readJsonSync(string | URL)`
 
 Sync version of `readJson`.
 
@@ -67,11 +60,15 @@ Sync version of `readJson`.
 - `json.{read,load}` alias of `readJson`
 - `json.{read,load}Sync` alias of `readJsonSync`
 
-### `importFile(string | URL)`
-
-> Don't use this to import a NPM module
+### `importModule(string | URL)`
 
 Same as `import()`, but accepts absolute path (on Windows, `import('C:\\foo.js')` error throws when pass a absolute path starts with a drive letter).
+
+### `readJson(string | URL)`
+
+Returns `Promise<jsonObject>`.
+
+### `readJsonSync(string | URL)`
 
 ## Import json file
 
