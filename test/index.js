@@ -7,6 +7,23 @@ const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
 const esmUtils = createEsmUtils(import.meta)
 
+test('createEsmUtils', (t) => {
+  for (const sourceModule of [
+    // `file:///`
+    import.meta.url,
+    // `URL`
+    new URL(import.meta.url),
+    // Absolute path
+    url.fileURLToPath(import.meta.url),
+  ]) {
+    t.is(
+      createEsmUtils(sourceModule).filename,
+      esmUtils.filename,
+      `sourceModule '${sourceModule}' didn't work as expected`,
+    )
+  }
+})
+
 test('filename', (t) => {
   t.is(
     esmUtils.filename,

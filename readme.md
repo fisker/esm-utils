@@ -40,7 +40,7 @@ const {
 
 ## API
 
-### `createEsmUtils(import.meta)`
+### `createEsmUtils(import.meta | URL | 'string')`
 
 Returns an `object` with the following properties:
 

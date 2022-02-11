@@ -58,7 +58,7 @@ export type importFile = (file: string | URL) => Promise<unknown>
 /**
 Create utilities for ES Module.
 
-@param importMeta import.meta
+@param sourceModule - `import.meta`, `URL`, or path to the source module
 
 @example
 ```
@@ -67,7 +67,9 @@ import createEsmUtils from 'esm-utils'
 const esmUtils = createEsmUtils(import.meta)
 ```
 */
-export default function createEsmUtils(importMeta: ImportMeta): {
+export default function createEsmUtils(
+  sourceModule: ImportMeta | URL | string,
+): {
   readonly filename: string
   readonly dirname: string
   readonly require: NodeRequire
