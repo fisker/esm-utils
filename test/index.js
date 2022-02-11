@@ -140,7 +140,7 @@ test('importModule()', async (t) => {
     )
   }
 
-  await t.notThrowsAsync(importModule('ava'),)
+  await t.notThrowsAsync(importModule('ava'))
   t.is(esmUtils.import, importModule)
   t.is(esmUtils.importModule, importModule)
 })
