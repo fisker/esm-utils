@@ -29,12 +29,12 @@ yarn add esm-utils
 import createEsmUtils from 'esm-utils'
 
 const {
-  require,
   dirname,
   filename,
+  require,
+  importModule,
   readJson,
   readJsonSync,
-  importModule,
 } = createEsmUtils(import.meta)
 ```
 
@@ -54,11 +54,6 @@ Returns an `object` with the following properties:
 **Please read [this note](#you-dont-need-dirname-and-filename) before you use `dirname` and `filename`**
 
 Sync version of `readJson`.
-
-### `json`
-
-- `json.{read,load}` alias of `readJson`
-- `json.{read,load}Sync` alias of `readJsonSync`
 
 ### `importModule(string | URL)`
 
