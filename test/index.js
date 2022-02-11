@@ -39,6 +39,7 @@ test('dirname', (t) => {
 
 test('json', async (t) => {
   const packageJsonUrl = new URL(packageJsonPath, import.meta.url)
+  const packageJsonAbsolutePath = url.fileURLToPath(packageJsonUrl)
   const {readJson, readJsonSync} = esmUtils
 
   const packageJson = await readJson(packageJsonPath)
@@ -47,6 +48,11 @@ test('json', async (t) => {
     await readJson(packageJsonUrl),
     packageJson,
     '`readJson()` should work on `URL` too.',
+  )
+  t.deepEqual(
+    await readJson(packageJsonAbsolutePath),
+    packageJson,
+    '`readJson()` should work on absolute path too.',
   )
 
   const packageJsonSync = readJsonSync(packageJsonPath)
@@ -59,6 +65,11 @@ test('json', async (t) => {
     readJsonSync(packageJsonUrl),
     packageJson,
     '`readJsonSync()` should work on `URL` too.',
+  )
+  t.deepEqual(
+    readJsonSync(packageJsonAbsolutePath),
+    packageJson,
+    '`readJsonSync()` should work on absolute path too.',
   )
 
   // Alias
