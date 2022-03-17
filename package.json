@@ -65,7 +65,7 @@
     "url-or-path": "2.1.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "16.2.1",
+    "@commitlint/cli": "16.2.3",
     "@fisker/commitlint-config": "2.0.2",
     "@fisker/eslint-config": "10.0.13",
     "@fisker/eslint-config-ava": "2.0.5",
