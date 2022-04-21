@@ -64,7 +64,7 @@
     "@fisker/eslint-config": "10.1.4",
     "@fisker/eslint-config-ava": "2.0.5",
     "@fisker/husky-config": "4.1.2",
-    "@fisker/lint-staged-config": "3.1.4",
+    "@fisker/lint-staged-config": "3.1.5",
     "@fisker/markdownlint-cli2-config": "0.0.3",
     "@fisker/prettier-config": "5.0.5",
     "ava": "4.2.0",
