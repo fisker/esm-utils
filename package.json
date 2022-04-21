@@ -79,6 +79,7 @@
     "prettier": "2.6.2",
     "sort-package-json": "1.55.0"
   },
+  "packageManager": "yarn@3.2.0",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
