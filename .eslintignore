@@ -8,20 +8,23 @@
 !.*
 
 # vendors
-node_modules/**
+**/node_modules/**
 **/vendors/**
 **/vendor/**
 **/third-party/**
 
 # build file
-dist/**
+**/dist/**
 **/*.min.*
 
 # fixtures
 **/fixtures/**
 
 # test
-.nyc_output/**
-coverage/**
+**/.nyc_output/**
+**/coverage/**
+
+# yarn
+**/.yarn
 
 # project glob
