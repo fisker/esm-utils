@@ -71,7 +71,7 @@
     "c8": "7.11.2",
     "cz-conventional-changelog": "3.3.0",
     "del-cli": "4.0.1",
-    "eslint": "8.13.0",
+    "eslint": "8.14.0",
     "husky": "7.0.4",
     "lint-staged": "12.4.0",
     "markdownlint-cli2": "0.4.0",
