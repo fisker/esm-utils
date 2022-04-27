@@ -159,6 +159,60 @@ test('importModule()', async (t) => {
   t.is(esmUtils.importModule, importModule)
 })
 
+async function getErrorStack(fn) {
+  let error
+  try {
+    await fn()
+    return
+  } catch (syntaxError) {
+    error = syntaxError
+  }
+
+  return {
+    error,
+    stackFiles: error.stack
+      .split('\n')
+      .map((line) => line.match(/^\s+at\s.*?\((?<file>.*?):\d+:\d+\)$/))
+      .filter(Boolean)
+      .map((match) => match.groups.file),
+  }
+}
+
+test('importModule() with `traceSyntaxError`', async (t) => {
+  const SYNTAX_ERROR_FILE_URL = new URL(
+    './fixtures/syntax-error-file.js',
+    import.meta.url,
+  ).href
+
+  {
+    const {error, stackFiles} = await getErrorStack(() =>
+      esmUtils.importModule('./fixtures/syntax-error-file.js'),
+    )
+    t.true(!error.message.includes(SYNTAX_ERROR_FILE_URL))
+    t.true(
+      stackFiles.every((file) => file.startsWith('node:internal/modules/esm/')),
+    )
+  }
+
+  {
+    const {error, stackFiles} = await getErrorStack(() =>
+      esmUtils.importModule('./fixtures/syntax-error-file.js', {
+        traceSyntaxError: true,
+      }),
+    )
+    t.true(error.message.includes(SYNTAX_ERROR_FILE_URL))
+  }
+
+  {
+    const {error, stackFiles} = await getErrorStack(() =>
+      esmUtils.importModule('./fixtures/importing-syntax-error-file.js', {
+        traceSyntaxError: true,
+      }),
+    )
+    t.true(error.message.includes(SYNTAX_ERROR_FILE_URL))
+  }
+})
+
 test('exports', (t) => {
   t.throws(
     () => {
