@@ -28,3 +28,4 @@
 **/.yarn
 
 # project glob
+test/fixtures/syntax-error-file.js
