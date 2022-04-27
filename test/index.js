@@ -190,9 +190,11 @@ test('importModule() with `traceSyntaxError`', async (t) => {
     )
     t.true(!error.message.includes(SYNTAX_ERROR_FILE_URL))
     t.true(
-      stackFiles.every((file) => file.startsWith('node:internal/modules/esm/'))||
-      // TODO: remove this when we drop support for Node.js v14
-      stackFiles.every((file) => file.startsWith('internal/modules/esm/'))
+      stackFiles.every((file) =>
+        file.startsWith('node:internal/modules/esm/'),
+      ) ||
+        // TODO: remove this when we drop support for Node.js v14
+        stackFiles.every((file) => file.startsWith('internal/modules/esm/')),
     )
   }
 
@@ -203,6 +205,11 @@ test('importModule() with `traceSyntaxError`', async (t) => {
       }),
     )
     t.true(error.message.includes(SYNTAX_ERROR_FILE_URL))
+    error.message = error.message.replace(
+      url.pathToFileURL(process.cwd()).href,
+      '<CWD>',
+    )
+    t.snapshot(error)
   }
 
   {
@@ -212,6 +219,11 @@ test('importModule() with `traceSyntaxError`', async (t) => {
       }),
     )
     t.true(error.message.includes(SYNTAX_ERROR_FILE_URL))
+    error.message = error.message.replace(
+      url.pathToFileURL(process.cwd()).href,
+      '<CWD>',
+    )
+    t.snapshot(error)
   }
 })
 
