@@ -33,10 +33,15 @@ const data = json.loadSync('foo.json')
 */
 export type readJsonSync = (file: string | URL) => JsonValue
 
+export interface ImportModuleOptions {
+  readonly traceSyntaxError?: boolean
+}
+
 /**
 Import a module
 
 @param source string | URL
+@param options ImportModuleOptions
 
 @example
 ```
@@ -46,7 +51,10 @@ const {importModule} = createEsmUtils(import.meta)
 const foo = await importModule('./foo.js')
 ```
 */
-export type importModule = (file: string | URL) => Promise<unknown>
+export type importModule = (
+  file: string | URL,
+  options?: ImportModuleOptions,
+) => Promise<unknown>
 
 /**
 Create utilities for ES Module.
