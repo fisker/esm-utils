@@ -1,7 +1,13 @@
 import url from 'url'
 import path from 'path'
 import test from 'ava'
-import createEsmUtils, {importModule} from '../index.js'
+import createEsmUtils, {
+  importModule,
+  readJson,
+  loadJson,
+  readJsonSync,
+  loadJsonSync,
+} from '../index.js'
 
 const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
@@ -54,7 +60,7 @@ test('dirname', (t) => {
   t.throws(() => (esmUtils.__dirname = '1'))
 })
 
-test('json', async (t) => {
+test('utils.{readJson,readJsonSync}', async (t) => {
   const packageJsonUrl = new URL(packageJsonPath, import.meta.url)
   const packageJsonAbsolutePath = url.fileURLToPath(packageJsonUrl)
   const {readJson, readJsonSync} = esmUtils
@@ -115,6 +121,43 @@ test('require', (t) => {
     path.join(projectRoot, 'package.json'),
     '`require.resolve()` should work as expected',
   )
+})
+
+test('{readJson,readJsonSync}', async (t) => {
+  const packageJsonUrl = new URL(packageJsonPath, import.meta.url)
+  const packageJsonAbsolutePath = url.fileURLToPath(packageJsonUrl)
+
+  const packageJson = await readJson(packageJsonUrl)
+  t.is(packageJson.name, 'esm-utils', '`readJson()` should work as expected.')
+  t.deepEqual(
+    await readJson(packageJsonAbsolutePath),
+    packageJson,
+    '`readJson()` should work on absolute path too.',
+  )
+
+  const packageJsonSync = readJsonSync(packageJsonUrl)
+  t.deepEqual(
+    packageJsonSync,
+    packageJson,
+    '`readJsonSync()` should work as expected.',
+  )
+  t.deepEqual(
+    readJsonSync(packageJsonAbsolutePath),
+    packageJson,
+    '`readJsonSync()` should work on absolute path too.',
+  )
+
+  // Relative path
+  await t.throwsAsync(readJson('./non-exits'), {
+    message: /^'file' should be a absolute path or URL\./,
+  })
+  t.throws(() => readJsonSync('./non-exits'), {
+    message: /^'file' should be a absolute path or URL\./,
+  })
+
+  // Alias
+  t.is(loadJson, readJson)
+  t.is(loadJsonSync, readJsonSync)
 })
 
 test('utils.importModule()', async (t) => {
@@ -180,7 +223,7 @@ test('importModule()', async (t) => {
   }
 
   // Relative path
-  await t.throwsAsync(importModule('./fixture.js'), {
+  await t.throwsAsync(importModule('./non-exits'), {
     message: /^'module' should be a absolute path or URL\./,
   })
 

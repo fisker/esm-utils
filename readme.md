@@ -39,7 +39,14 @@ const {
 ```
 
 ```js
-import {importModule} from 'esm-utils'
+/* Those named exports only accept absolute path or URL */
+import {
+  importModule,
+  readJson,
+  loadJson,
+  readJsonSync,
+  loadJsonSync,
+} from 'esm-utils'
 ```
 
 ## API
@@ -118,6 +125,14 @@ const foo = readJsonSync('./foo.json')
 ## `importModule()`
 
 Same as `utils.importModule()`, but only accept absolute path or URL.
+
+## `readJson()` (alias `loadJson`)
+
+Same as `utils.readJson()`, but only accept absolute path or URL.
+
+## `readJsonSync()` (alias `loadJsonSync`)
+
+Same as `utils.readJsonSync()`, but only accept absolute path or URL.
 
 ## You don't need `dirname` and `filename`
 
