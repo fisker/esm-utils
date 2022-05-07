@@ -1,7 +1,7 @@
 import url from 'url'
 import path from 'path'
 import test from 'ava'
-import createEsmUtils from '../index.js'
+import createEsmUtils, {importModule} from '../index.js'
 
 const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
@@ -117,7 +117,7 @@ test('require', (t) => {
   )
 })
 
-test('importModule()', async (t) => {
+test('utils.importModule()', async (t) => {
   const getModuleDefaultExport = (module) => module.default
   const fixtureUrl = new URL('./fixture.js', import.meta.url)
   const {importModule} = esmUtils
@@ -157,6 +157,35 @@ test('importModule()', async (t) => {
   await t.notThrowsAsync(importModule('node:fs'))
   t.is(esmUtils.import, importModule)
   t.is(esmUtils.importModule, importModule)
+})
+
+test('importModule()', async (t) => {
+  const getModuleDefaultExport = (module) => module.default
+  const fixtureUrl = new URL('./fixture.js', import.meta.url)
+
+  t.is(typeof importModule(fixtureUrl).then, 'function')
+  for (const source of [
+    // `URL`
+    fixtureUrl,
+    // `file:///`
+    fixtureUrl.href,
+    // Absolute path
+    url.fileURLToPath(fixtureUrl),
+  ]) {
+    t.is(
+      getModuleDefaultExport(await importModule(source)),
+      fixtureUrl.href,
+      `Import '${source}' failure`,
+    )
+  }
+
+  // Relative path
+  await t.throwsAsync(importModule('./fixture.js'), {
+    message: /^'module' should be a absolute path or URL\./,
+  })
+
+  await t.notThrowsAsync(importModule('ava'))
+  await t.notThrowsAsync(importModule('node:fs'))
 })
 
 async function getErrorStack(fn) {

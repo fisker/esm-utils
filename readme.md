@@ -38,6 +38,10 @@ const {
 } = createEsmUtils(import.meta)
 ```
 
+```js
+import {importModule} from 'esm-utils'
+```
+
 ## API
 
 ### `createEsmUtils(import.meta | URL | 'string')`
@@ -55,7 +59,7 @@ Returns an `object` with the following properties:
 
 Sync version of `readJson`.
 
-### `importModule(string | URL, options?)`
+### `utils.importModule(string | URL, options?)`
 
 Same as `import()`, but accepts absolute path (on Windows, `import('C:\\foo.js')` error throws when pass a absolute path starts with a drive letter).
 
@@ -68,11 +72,11 @@ Due to [this Node.js issue](https://github.com/nodejs/modules/issues/471), Node.
 
 When set `traceSyntaxError: true`, we'll try to get a better error message by running `node <file>` in a child process.
 
-### `readJson(string | URL)`
+### `utils.readJson(string | URL)`
 
 Returns `Promise<jsonObject>`.
 
-### `readJsonSync(string | URL)`
+### `utils.readJsonSync(string | URL)`
 
 ## Import json file
 
@@ -110,6 +114,10 @@ import createEsmUtils from 'esm-utils'
 const {readJsonSync} = createEsmUtils(import.meta)
 const foo = readJsonSync('./foo.json')
 ```
+
+## `importModule()`
+
+Same as `utils.importModule()`, but only accept absolute path or URL.
 
 ## You don't need `dirname` and `filename`
 
