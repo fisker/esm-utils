@@ -33,6 +33,7 @@ const {
   filename,
   require,
   importModule,
+  resolve,
   readJson,
   readJsonSync,
 } = createEsmUtils(import.meta)
@@ -59,6 +60,7 @@ Returns an `object` with the following properties:
 - `filename` (alias `__filename`)
 - `require`
 - `importModule` (alias `import`)
+- `resolve`
 - `readJson` (alias `loadJson`)
 - `readJsonSync` (alias `loadJsonSync`)
 
@@ -84,6 +86,14 @@ When set `traceSyntaxError: true`, we'll try to get a better error message by ru
 Returns `Promise<jsonObject>`.
 
 ### `utils.readJsonSync(string | URL)`
+
+Sync version of `utils.readJson`
+
+### `utils.resolve(string | URL)`
+
+Ponyfill for [`import.meta.resolve`](https://nodejs.org/api/esm.html#esm_import_meta_resolve_specifier_parent).
+
+If `import.meta.resolve` exits, use it directly, otherwise returns a simple wrapper of [import-meta-resolve](https://github.com/wooorm/import-meta-resolve).
 
 ## Import json file
 

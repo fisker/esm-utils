@@ -58,6 +58,7 @@
     ]
   },
   "dependencies": {
+    "import-meta-resolve": "1.1.1",
     "url-or-path": "2.1.0"
   },
   "devDependencies": {

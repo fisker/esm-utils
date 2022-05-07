@@ -1,6 +1,7 @@
 import url from 'url'
 import path from 'path'
 import test from 'ava'
+import {resolve as ponyfillResolve} from 'import-meta-resolve'
 import createEsmUtils, {
   importModule,
   readJson,
@@ -58,6 +59,20 @@ test('dirname', (t) => {
   )
   t.throws(() => (esmUtils.dirname = '1'))
   t.throws(() => (esmUtils.__dirname = '1'))
+})
+
+test('utils.resolve()', async (t) => {
+  const {resolve} = esmUtils
+
+  if (import.meta.resolve) {
+    t.is(import.meta.resolve, resolve)
+    t.is(
+      await import.meta.resolve('ava'),
+      await ponyfillResolve('ava', import.meta.url),
+    )
+  }
+
+  t.is(typeof (await resolve('ava')), 'string')
 })
 
 test('utils.{readJson,readJsonSync}', async (t) => {
