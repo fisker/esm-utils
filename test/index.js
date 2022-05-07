@@ -104,7 +104,7 @@ test('utils.{readJson,readJsonSync}', async (t) => {
   t.is(esmUtils.loadJsonSync, readJsonSync)
 })
 
-test('require', (t) => {
+test('utils.require()', (t) => {
   t.is(typeof esmUtils.require, 'function', 'Should support `require`.')
   t.is(
     typeof esmUtils.require.resolve,
