@@ -62,7 +62,7 @@
     "url-or-path": "2.1.0"
   },
   "devDependencies": {
-    "@fisker/eslint-config": "10.2.4",
+    "@fisker/eslint-config": "10.2.5",
     "@fisker/eslint-config-ava": "2.0.5",
     "@fisker/husky-config": "4.1.2",
     "@fisker/lint-staged-config": "3.1.5",
