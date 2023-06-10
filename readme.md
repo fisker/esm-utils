@@ -5,7 +5,7 @@
 [![Npm Version][package_version_badge]][package_link]
 [![MIT License][license_badge]][license_link]
 
-[github_actions_badge]: https://img.shields.io/github/workflow/status/fisker/esm-utils/CI/main?style=flat-square
+[github_actions_badge]: https://img.shields.io/github/actions/workflow/status/fisker/esm-utils/continuous-integration.yml?branch=main&style=flat-square
 [github_actions_link]: https://github.com/fisker/esm-utils/actions?query=branch%3Amain
 [coveralls_badge]: https://img.shields.io/coveralls/github/fisker/esm-utils/main?style=flat-square
 [coveralls_link]: https://coveralls.io/github/fisker/esm-utils?branch=main
