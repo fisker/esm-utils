@@ -71,7 +71,7 @@
     "ava": "5.3.1",
     "c8": "8.0.1",
     "cz-conventional-changelog": "3.3.0",
-    "del-cli": "5.0.1",
+    "del-cli": "5.1.0",
     "eslint": "8.39.0",
     "husky": "8.0.3",
     "lint-staged": "14.0.1",
