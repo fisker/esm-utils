@@ -66,10 +66,7 @@ test('utils.resolve()', async (t) => {
 
   if (import.meta.resolve) {
     t.is(import.meta.resolve, resolve)
-    t.is(
-      await import.meta.resolve('ava'),
-      await ponyfillResolve('ava', import.meta.url),
-    )
+    t.is(import.meta.resolve('ava'), ponyfillResolve('ava', import.meta.url))
   }
 
   t.is(typeof (await resolve('ava')), 'string')
