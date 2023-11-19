@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "import-meta-resolve": "^4.0.0",
-    "url-or-path": "^2.1.0"
+    "url-or-path": "^2.3.0"
   },
   "devDependencies": {
     "@fisker/eslint-config": "12.0.0",
