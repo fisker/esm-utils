@@ -48,17 +48,13 @@ jobs:
 
       - name: Run Test
         run: yarn test-coverage
-        env:
-          NODE_OPTIONS: ${{ matrix.node_options }}
 
       - name: Run Test (--experimental-import-meta-resolve)
         run: yarn test-coverage
         env:
           NODE_OPTIONS: "--experimental-import-meta-resolve"
 
-      - uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
+      - uses: coverallsapp/github-action@v2
 
   lint:
     name: Lint
