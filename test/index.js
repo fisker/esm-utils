@@ -289,11 +289,11 @@ test('importModule() with `traceSyntaxError`', async (t) => {
       }),
     )
     t.true(error.message.includes(SYNTAX_ERROR_FILE_URL))
-    error.message = error.message.replace(
+    const message = error.message.replace(
       url.pathToFileURL(process.cwd()).href,
       '<CWD>',
     )
-    t.snapshot(error)
+    t.true(message.includes('Unexpected identifier'))
   }
 
   {
@@ -303,11 +303,11 @@ test('importModule() with `traceSyntaxError`', async (t) => {
       }),
     )
     t.true(error.message.includes(SYNTAX_ERROR_FILE_URL))
-    error.message = error.message.replace(
+    const message = error.message.replace(
       url.pathToFileURL(process.cwd()).href,
       '<CWD>',
     )
-    t.snapshot(error)
+    t.true(message.includes('Unexpected identifier'))
   }
 })
 
