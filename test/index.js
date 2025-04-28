@@ -1,18 +1,19 @@
-import url from 'url'
-import path from 'path'
+import path from 'node:path'
+import process from 'node:process'
+import url from 'node:url'
 import test from 'ava'
 import {resolve as ponyfillResolve} from 'import-meta-resolve'
-import createEsmUtils, {
+import createEsmUtilities, {
   importModule,
-  readJson,
   loadJson,
-  readJsonSync,
   loadJsonSync,
+  readJson,
+  readJsonSync,
 } from '../index.js'
 
 const projectRoot = url.fileURLToPath(new URL('..', import.meta.url))
 const packageJsonPath = '../package.json'
-const esmUtils = createEsmUtils(import.meta)
+const esmUtilities = createEsmUtilities(import.meta)
 
 test('createEsmUtils', (t) => {
   for (const sourceModule of [
@@ -24,8 +25,8 @@ test('createEsmUtils', (t) => {
     url.fileURLToPath(import.meta.url),
   ]) {
     t.is(
-      createEsmUtils(sourceModule).filename,
-      esmUtils.filename,
+      createEsmUtilities(sourceModule).filename,
+      esmUtilities.filename,
       `sourceModule '${sourceModule}' didn't work as expected`,
     )
   }
@@ -33,36 +34,44 @@ test('createEsmUtils', (t) => {
 
 test('filename', (t) => {
   t.is(
-    esmUtils.filename,
+    esmUtilities.filename,
     path.join(projectRoot, 'test/index.js'),
     'Should support `filename`.',
   )
   t.is(
-    esmUtils.__filename,
-    esmUtils.filename,
+    esmUtilities.__filename,
+    esmUtilities.filename,
     'Should support `__filename` alias.',
   )
-  t.throws(() => (esmUtils.filename = '1'))
-  t.throws(() => (esmUtils.__filename = '1'))
+  t.throws(() => {
+    esmUtilities.filename = '1'
+  })
+  t.throws(() => {
+    esmUtilities.__filename = '1'
+  })
 })
 
 test('dirname', (t) => {
   t.is(
-    esmUtils.dirname,
+    esmUtilities.dirname,
     path.join(projectRoot, 'test'),
     'Should support `dirname`.',
   )
   t.is(
-    esmUtils.__dirname,
-    esmUtils.dirname,
+    esmUtilities.__dirname,
+    esmUtilities.dirname,
     'Should support `__dirname` alias.',
   )
-  t.throws(() => (esmUtils.dirname = '1'))
-  t.throws(() => (esmUtils.__dirname = '1'))
+  t.throws(() => {
+    esmUtilities.dirname = '1'
+  })
+  t.throws(() => {
+    esmUtilities.__dirname = '1'
+  })
 })
 
 test('utils.resolve()', async (t) => {
-  const {resolve} = esmUtils
+  const {resolve} = esmUtilities
 
   if (import.meta.resolve) {
     t.is(import.meta.resolve, resolve)
@@ -75,7 +84,7 @@ test('utils.resolve()', async (t) => {
 test('utils.{readJson,readJsonSync}', async (t) => {
   const packageJsonUrl = new URL(packageJsonPath, import.meta.url)
   const packageJsonAbsolutePath = url.fileURLToPath(packageJsonUrl)
-  const {readJson, readJsonSync} = esmUtils
+  const {readJson, readJsonSync} = esmUtilities
 
   const packageJson = await readJson(packageJsonPath)
   t.is(packageJson.name, 'esm-utils', '`readJson()` should work as expected.')
@@ -108,28 +117,28 @@ test('utils.{readJson,readJsonSync}', async (t) => {
   )
 
   // Alias
-  t.is(esmUtils.readJson, readJson)
-  t.is(esmUtils.loadJson, readJson)
+  t.is(esmUtilities.readJson, readJson)
+  t.is(esmUtilities.loadJson, readJson)
 
   // Alias
-  t.is(esmUtils.readJsonSync, readJsonSync)
-  t.is(esmUtils.loadJsonSync, readJsonSync)
+  t.is(esmUtilities.readJsonSync, readJsonSync)
+  t.is(esmUtilities.loadJsonSync, readJsonSync)
 })
 
 test('utils.require()', (t) => {
-  t.is(typeof esmUtils.require, 'function', 'Should support `require`.')
+  t.is(typeof esmUtilities.require, 'function', 'Should support `require`.')
   t.is(
-    typeof esmUtils.require.resolve,
+    typeof esmUtilities.require.resolve,
     'function',
     '`require.resolve` should work.',
   )
   t.is(
-    esmUtils.require(packageJsonPath).name,
+    esmUtilities.require(packageJsonPath).name,
     'esm-utils',
     '`require()` should work as expected',
   )
   t.is(
-    esmUtils.require.resolve(packageJsonPath),
+    esmUtilities.require.resolve(packageJsonPath),
     path.join(projectRoot, 'package.json'),
     '`require.resolve()` should work as expected',
   )
@@ -172,10 +181,10 @@ test('{readJson,readJsonSync}', async (t) => {
   t.is(loadJsonSync, readJsonSync)
 })
 
+const getModuleDefaultExport = (module) => module.default
 test('utils.importModule()', async (t) => {
-  const getModuleDefaultExport = (module) => module.default
   const fixtureUrl = new URL('./fixture.js', import.meta.url)
-  const {importModule} = esmUtils
+  const {importModule} = esmUtilities
 
   t.is(typeof importModule(fixtureUrl).then, 'function')
   for (const source of [
@@ -189,33 +198,33 @@ test('utils.importModule()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
+      // eslint-disable-next-line no-await-in-loop
       getModuleDefaultExport(await importModule(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
     )
   }
 
-  const utilsCreatedFromParent = createEsmUtils(
+  const utilitiesCreatedFromParent = createEsmUtilities(
     new URL('../dummy.js', import.meta.url),
   )
   t.is(
     getModuleDefaultExport(
-      await utilsCreatedFromParent.importModule('./test/fixture.js'),
+      await utilitiesCreatedFromParent.importModule('./test/fixture.js'),
     ),
     fixtureUrl.href,
   )
-  await t.throwsAsync(utilsCreatedFromParent.importModule('./fixture.js'), {
+  await t.throwsAsync(utilitiesCreatedFromParent.importModule('./fixture.js'), {
     code: 'ERR_MODULE_NOT_FOUND',
   })
 
   await t.notThrowsAsync(importModule('ava'))
   await t.notThrowsAsync(importModule('node:fs'))
-  t.is(esmUtils.import, importModule)
-  t.is(esmUtils.importModule, importModule)
+  t.is(esmUtilities.import, importModule)
+  t.is(esmUtilities.importModule, importModule)
 })
 
 test('importModule()', async (t) => {
-  const getModuleDefaultExport = (module) => module.default
   const fixtureUrl = new URL('./fixture.js', import.meta.url)
 
   t.is(typeof importModule(fixtureUrl).then, 'function')
@@ -228,6 +237,7 @@ test('importModule()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
+      // eslint-disable-next-line no-await-in-loop
       getModuleDefaultExport(await importModule(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
@@ -243,10 +253,10 @@ test('importModule()', async (t) => {
   await t.notThrowsAsync(importModule('node:fs'))
 })
 
-async function getErrorStack(fn) {
+async function getErrorStack(function_) {
   let error
   try {
-    await fn()
+    await function_()
     return
   } catch (syntaxError) {
     error = syntaxError
@@ -256,6 +266,7 @@ async function getErrorStack(fn) {
     error,
     stackFiles: error.stack
       .split('\n')
+      // eslint-disable-next-line sonarjs/slow-regex, regexp/no-super-linear-backtracking
       .map((line) => line.match(/^\s+at\s.*?\((?<file>.*?):\d+:\d+\)$/))
       .filter(Boolean)
       .map((match) => match.groups.file),
@@ -270,7 +281,7 @@ test('importModule() with `traceSyntaxError`', async (t) => {
 
   {
     const {error, stackFiles} = await getErrorStack(() =>
-      esmUtils.importModule('./fixtures/syntax-error-file.js'),
+      esmUtilities.importModule('./fixtures/syntax-error-file.js'),
     )
     t.true(!error.message.includes(SYNTAX_ERROR_FILE_URL))
     t.true(
@@ -283,8 +294,8 @@ test('importModule() with `traceSyntaxError`', async (t) => {
   }
 
   {
-    const {error, stackFiles} = await getErrorStack(() =>
-      esmUtils.importModule('./fixtures/syntax-error-file.js', {
+    const {error} = await getErrorStack(() =>
+      esmUtilities.importModule('./fixtures/syntax-error-file.js', {
         traceSyntaxError: true,
       }),
     )
@@ -297,8 +308,8 @@ test('importModule() with `traceSyntaxError`', async (t) => {
   }
 
   {
-    const {error, stackFiles} = await getErrorStack(() =>
-      esmUtils.importModule('./fixtures/importing-syntax-error-file.js', {
+    const {error} = await getErrorStack(() =>
+      esmUtilities.importModule('./fixtures/importing-syntax-error-file.js', {
         traceSyntaxError: true,
       }),
     )
@@ -313,14 +324,12 @@ test('importModule() with `traceSyntaxError`', async (t) => {
 
 test('exports', (t) => {
   t.throws(
-    () => {
-      createEsmUtils().filename
-    },
+    () => createEsmUtilities().filename,
     {
       instanceOf: TypeError,
     },
     'createEsmUtils requires `importMeta`',
   )
 
-  t.is(Object.getPrototypeOf(esmUtils), null)
+  t.is(Object.getPrototypeOf(esmUtilities), null)
 })
