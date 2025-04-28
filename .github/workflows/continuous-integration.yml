@@ -20,7 +20,6 @@ jobs:
         node_version:
           - "22"
           - "20"
-          - "18"
         # exclude:
         #   - os: "macos-latest"
         #     node_version: "12"
@@ -42,7 +41,7 @@ jobs:
         run: yarn
 
       # - name: Download Artifact
-      #   uses: actions/download-artifact@v3
+      #   uses: actions/download-artifact@v4
       #   with:
       #     name: dist
       #     path: dist
@@ -50,12 +49,12 @@ jobs:
       - name: Run Test
         run: yarn test-coverage
 
-      - name: Run Test (--experimental-import-meta-resolve)
-        run: yarn test-coverage
-        env:
-          NODE_OPTIONS: "--experimental-import-meta-resolve"
-
-      - uses: coverallsapp/github-action@v2
+      - uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          disable_search: true
+          files: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     name: Lint
@@ -82,10 +81,10 @@ jobs:
   #     YARN_ENABLE_IMMUTABLE_INSTALLS: false
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@v3
+  #       uses: actions/checkout@v4
 
   #     - name: Setup Node.js
-  #       uses: actions/setup-node@v23
+  #       uses: actions/setup-node@v4
 
   #     - name: Install Dependencies
   #       run: yarn
@@ -94,7 +93,7 @@ jobs:
   #       run: yarn build
 
   #     - name: Upload Artifact
-  #       uses: actions/upload-artifact@v3
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         name: dist
   #         path: dist

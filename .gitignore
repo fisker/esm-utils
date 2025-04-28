@@ -92,11 +92,12 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# Yarn 2
+# Yarn
 .yarn/cache/
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.js
 
 # project ignore files
+.deleted/
 dist/
