@@ -281,6 +281,7 @@ test('importModule() with `traceSyntaxError`', async (t) => {
     const {error, stackFiles} = await getErrorStack(() =>
       esmUtilities.importModule('./fixtures/syntax-error-file.js'),
     )
+    console.log({'error.message': error.message})
     t.true(!error.message.includes(SYNTAX_ERROR_FILE_URL))
     t.true(
       stackFiles.every(
