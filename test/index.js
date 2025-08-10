@@ -287,9 +287,7 @@ test('importModule() with `traceSyntaxError`', async (t) => {
       stackFiles.every(
         (file) =>
           file.startsWith('node:internal/modules/esm/') ||
-          file === 'node:internal/process/task_queues' ||
-          // TODO: remove this when we drop support for Node.js v14
-          file.startsWith('internal/modules/esm/'),
+          file === 'node:internal/process/task_queues',
       ),
     )
   }
