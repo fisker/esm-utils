@@ -198,7 +198,6 @@ test('utils.importModule()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
-      // eslint-disable-next-line no-await-in-loop
       getModuleDefaultExport(await importModule(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
@@ -237,7 +236,6 @@ test('importModule()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
-      // eslint-disable-next-line no-await-in-loop
       getModuleDefaultExport(await importModule(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
@@ -285,11 +283,11 @@ test('importModule() with `traceSyntaxError`', async (t) => {
     )
     t.true(!error.message.includes(SYNTAX_ERROR_FILE_URL))
     t.true(
-      stackFiles.every((file) =>
-        file.startsWith('node:internal/modules/esm/'),
-      ) ||
-        // TODO: remove this when we drop support for Node.js v14
-        stackFiles.every((file) => file.startsWith('internal/modules/esm/')),
+      stackFiles.every(
+        (file) =>
+          file.startsWith('node:internal/modules/esm/') ||
+          file === 'node:internal/process/task_queues',
+      ),
     )
   }
 
