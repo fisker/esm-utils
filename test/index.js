@@ -198,7 +198,6 @@ test('utils.importModule()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
-      // eslint-disable-next-line no-await-in-loop
       getModuleDefaultExport(await importModule(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
@@ -237,7 +236,6 @@ test('importModule()', async (t) => {
     url.fileURLToPath(fixtureUrl),
   ]) {
     t.is(
-      // eslint-disable-next-line no-await-in-loop
       getModuleDefaultExport(await importModule(source)),
       fixtureUrl.href,
       `Import '${source}' failure`,
